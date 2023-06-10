@@ -54,6 +54,7 @@ git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Python
 ```
 
 <details><summary>Запуск одним файлом (согласно ТЗ)</summary>
+    
 2. Из корневой директории проекта выполните команду:
 
 ```bash
