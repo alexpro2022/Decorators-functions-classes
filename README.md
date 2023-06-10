@@ -16,6 +16,8 @@
 [![aiohttp](https://img.shields.io/badge/-aiohttp-464646?logo=aiohttp)](https://docs.aiohttp.org/en/stable/index.html)
 [![httpx](https://img.shields.io/badge/-httpx-464646?logo=httpx)](https://www.python-httpx.org/)
 
+[⬆️Оглавление](#оглавление)
+
 
 ## Описание работы:
 Тестовые задания для соискателя 1 этап - реализация функций и классов.
@@ -35,7 +37,6 @@
   F. Написать декоратор к предыдущему классу, который будет выводить в консоль время выполнения каждого метода. Результат выполнения задания должен быть оформлен в виде файла с кодом.
     <h1></h1>
 [⬆️Оглавление](#оглавление)
-
 </details>
 
 
@@ -81,10 +82,9 @@ cd individual_run/timer && docker build -t image . && docker run image && cd ../
 ```bash
 cd individual_run/text_class && docker build -t image . && docker run image && cd ../..
 ```
-
 <h1></h1>
+[⬆️Оглавление](#оглавление)    
 </details>
-
 
 
 ## Удаление:
