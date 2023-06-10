@@ -43,8 +43,7 @@
 ### Для удобства запуск производится в Docker-контейнере.
 1. Клонируйте репозиторий с GitHub:
 ```bash
-git clone https://github.com/alexpro2022/<REPOSITORY_NAME>.git && \
-cd <REPOSITORY_NAME> 
+git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Pythonic-games-1-stage 
 ```
 
 <details><summary>Запуск одним файлом (согласно ТЗ)</summary>
@@ -91,7 +90,7 @@ cd individual_run/text_class && docker build -t image . && docker run image && c
 ## Удаление:
 Для удаления проекта выполните команду:
 ```bash
-cd .. && rm -fr <REPOSITORY_NAME> && deactivate
+cd .. && rm -fr Pythonic-games-1-stage && deactivate
 ```
   
 [⬆️Оглавление](#оглавление)
