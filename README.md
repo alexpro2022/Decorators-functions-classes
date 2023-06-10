@@ -97,7 +97,7 @@ cd individual_run/text_class && docker build -t image . && docker run image && c
 <br>
 
 ## Удаление:
-Для удаления проекта выполните команду:
+Из корневой директории проекта выполните команду:
 ```bash
 cd .. && rm -fr Pythonic-games-1-stage && deactivate
 ```
