@@ -25,7 +25,7 @@
 
 ## Описание работы:
 Тестовые задания для соискателя 1 этап - реализация функций и классов.
-<details><summary>Подробнее</summary>
+<details><summary>Подробнее</summary><br>
 Все решения нужно поместить в один репозиторий, в нем же подготовить тестовые данные. Для проверки должно быть достаточно запустить один файл.
     <h1></h1>
   A. Функция принимает в качестве аргумента набор ссылок. Ссылки имеют формат ссылок на проекты на гитхабе (например: https://github.com/miguelgrinberg/Flask-SocketIO, https://github.com/miguelgrinberg/Flask-SocketIO.git). Функция должна обработать полученные ссылки и вывести в консоль названия самих гит-проектов. Стоит рассмотреть защиту от ссылок "вне формата".
@@ -53,7 +53,7 @@
 git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Pythonic-games-1-stage 
 ```
 
-<details><summary>Запуск одним файлом (согласно ТЗ)</summary>
+<details><summary>Запуск одним файлом (согласно ТЗ)</summary><br>
     
 2. Из корневой директории проекта выполните команду:
 
@@ -63,7 +63,7 @@ cd group_run && docker build -t image . && docker run image && cd ..
 <h1></h1>
 </details>
 
-<details><summary>Индивидуальный запуск</summary>
+<details><summary>Индивидуальный запуск</summary><br>
 
 2. Функция принимает в качестве аргумента набор ссылок. Ссылки имеют формат ссылок на проекты на гитхабе (например: https://github.com/miguelgrinberg/Flask-SocketIO, https://github.com/miguelgrinberg/Flask-SocketIO.git). Функция должна обработать полученные ссылки и вывести в консоль названия самих гит-проектов. Стоит рассмотреть защиту от ссылок "вне формата".
 ```bash
