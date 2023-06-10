@@ -5,25 +5,25 @@ D. Реализовать функцию, которая замеряет вре
    библиотек. Результат замера времени выводит в консоль.
    Ожидаемое время не должно превышать 10 секунд.
 """
-
-
 import aiohttp
 import asyncio
-import time
+
+import os
+import sys
+
+if __package__:
+    from . import decorators
+else:
+    sys.path.append(os.path.dirname(__file__) + '/.')
+    import decorators
 
 TEST_URL = 'http://httpbin.org/delay/3'
 MAX_SIZE = 100
 
 
-def timer(func):
-    MSG = '\nВремя выполнения функции "{}" составило {:.5f} секунд.'
-
-    async def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = await func(*args, **kwargs)
-        print(MSG.format(func.__name__, time.time() - start_time))
-        return result
-    return wrapper
+@decorators.input
+def __get_test_data():
+    return TEST_URL
 
 
 async def get_url(session, url):
@@ -31,7 +31,7 @@ async def get_url(session, url):
         return response
 
 
-@timer
+@decorators.atimer
 async def test_url(url):
     async with aiohttp.ClientSession() as session:
         tasks = [asyncio.create_task(get_url(session, url))
@@ -39,9 +39,10 @@ async def test_url(url):
         return await asyncio.gather(*tasks)
 
 
+@decorators.output
+def main(title):
+    asyncio.run(test_url(__get_test_data()))
+
+
 if __name__ == '__main__':
-    MSG = '{qty} асинхронных запросов к: {url}'
-    # start = time.time()
-    results = asyncio.run(test_url(TEST_URL))
-    print(MSG.format(qty=MAX_SIZE, url=results[-1].url))
-    # print(f'total time = {time.time() - start}')
+    main(__doc__)

@@ -9,33 +9,33 @@ F. Написать декоратор к предыдущему классу, �
    оформлен в виде файла с кодом.
 
 """
-
-
 import string as s
-import time
+import os
+import sys
+
+if __package__:
+    from . import decorators
+else:
+    sys.path.append(os.path.dirname(__file__) + '/.')
+    import decorators
 
 
-def timer(func):
-    MSG = '\nВремя выполнения функции "{}" составило {:.5f} секунд.'
-
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        print(MSG.format(func.__name__, time.time() - start_time))
-        return result
-    return wrapper
+@decorators.input
+def __get_test_data():
+    with open('functions/data.txt', encoding='utf-8') as f:
+        return f.read()
 
 
 class Text:
     RUS_ALPHABET = ''.join([chr(i) for i in range(ord('А'), ord('я') + 1)])
     ALPHABET = RUS_ALPHABET + s.ascii_letters + s.digits
-    LONGEST_WORD_MSG = 'Самое длинное слово в тексте: "{}".'
-    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово: "{}".'
+    LONGEST_WORD_MSG = 'Самое длинное слово в тексте: "{}".\n'
+    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово: "{}".\n'
     SPECIAL_SIMBOLS_MSG = ('Количество спецсимволов в тексте '
-                           '(точки, запятые и т. д.): {}.')
+                           '(точки, запятые и т. д.): {}.\n')
     PALINDROMES_MSG = ('Все палиндромы:\n  '
                        '*слова - {}\n  '
-                       '*предложения:\n   | {}')
+                       '*предложения:\n   | {}.\n')
 
     def __init__(self, text: str) -> None:
         self.text = text
@@ -74,12 +74,12 @@ class Text:
         s = [char.lower() for char in item if char in set(self.ALPHABET)]
         return s == s[::-1]
 
-    @timer
+    @decorators.timer
     def longest_word(self):
         return self.LONGEST_WORD_MSG.format(
             max(self.__get_words(), key=lambda x: len(x)))
 
-    @timer
+    @decorators.timer
     def frequent_word(self, min_length: int = 2):
         words = self.__get_words(min_length)
         unique_words = set(words)
@@ -88,7 +88,7 @@ class Text:
             counter[words.count(word)] = word
         return self.FREQUENT_WORD_MSG.format(counter[sorted(counter)[-1]])
 
-    @timer
+    @decorators.timer
     def special_simbols_counter(self):
         counter = 0
         for char in self.text:
@@ -96,7 +96,7 @@ class Text:
                 counter += 1
         return self.SPECIAL_SIMBOLS_MSG.format(counter)
 
-    @timer
+    @decorators.timer
     def palindromes(self, min_length: int = 2):
         words = [word for word in self.__get_words(min_length)
                  if self.__is_palindrome(word)]
@@ -106,14 +106,14 @@ class Text:
                                            '\n   | '.join(sentences))
 
 
-if __name__ == '__main__':
-
-    def _get_test_data():
-        with open('data.txt', encoding='utf-8') as f:
-            return f.read()
-
-    text = Text(_get_test_data())
+@decorators.output
+def main(title):
+    text = Text(__get_test_data())
     print(text.longest_word())
     print(text.frequent_word(min_length=5))
     print(text.special_simbols_counter())
     print(text.palindromes())
+
+
+if __name__ == '__main__':
+    main(__doc__)
