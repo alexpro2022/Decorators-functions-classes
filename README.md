@@ -36,6 +36,7 @@
     <h1></h1>
   F. Написать декоратор к предыдущему классу, который будет выводить в консоль время выполнения каждого метода. Результат выполнения задания должен быть оформлен в виде файла с кодом.
     <h1></h1>
+
 [⬆️Оглавление](#оглавление)
 </details>
 
@@ -83,6 +84,7 @@ cd individual_run/timer && docker build -t image . && docker run image && cd ../
 cd individual_run/text_class && docker build -t image . && docker run image && cd ../..
 ```
 <h1></h1>
+
 [⬆️Оглавление](#оглавление)    
 </details>
 
