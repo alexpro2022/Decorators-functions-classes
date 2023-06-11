@@ -77,9 +77,7 @@ docker build -t image . && docker run image
 
 3. Установите в виртуальное окружение зависимости:
 ```bash
-python -m pip install --upgrade pip && \
-pip install aiohttp[speedups] && \
-pip install httpx
+python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
 
 <details><summary>Запуск одним файлом</summary><br>
