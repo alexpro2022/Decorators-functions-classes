@@ -79,7 +79,7 @@ docker build -t image . && docker run image
 ```bash
 python -m pip install --upgrade pip && \
 pip install aiohttp[speedups] && \
-pip install httpx && \
+pip install httpx
 ```
 
 <details><summary>Запуск одним файлом</summary><br>
@@ -127,7 +127,7 @@ python functions/text_class.py
 ## Удаление:
 Из корневой директории проекта выполните команду:
 ```bash
-cd .. && rm -fr Pythonic-games-1-stage
+cd .. && rm -fr Pythonic-games-1-stage && deactivate
 ```
   
 [⬆️Оглавление](#оглавление)
