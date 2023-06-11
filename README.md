@@ -90,7 +90,7 @@ python main.py
 <h1></h1>
 </details>
 
-<details><summary>Индивидуальный запуск в виртуальном окружении</summary><br>
+<details><summary>Индивидуальный запуск функций</summary><br>
 
 A. Функция принимает в качестве аргумента набор ссылок. Ссылки имеют формат ссылок на проекты на гитхабе (например: https://github.com/miguelgrinberg/Flask-SocketIO, https://github.com/miguelgrinberg/Flask-SocketIO.git). Функция должна обработать полученные ссылки и вывести в консоль названия самих гит-проектов. Стоит рассмотреть защиту от ссылок "вне формата".
 ```bash
