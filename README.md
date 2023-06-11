@@ -14,7 +14,7 @@
 
 ## Технологии:
 
-[![Python](https://img.shields.io/badge/python-3.11-blue?logo=python)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?logo=python)](https://www.python.org/)
 [![asyncio](https://img.shields.io/badge/-asyncio-464646?logo=python)](https://docs.python.org/3/library/asyncio.html)
 [![aiohttp](https://img.shields.io/badge/-aiohttp-464646?logo=aiohttp)](https://docs.aiohttp.org/en/stable/index.html)
 [![httpx](https://img.shields.io/badge/-httpx-464646?logo=httpx)](https://www.python-httpx.org/)
@@ -50,7 +50,7 @@
 
 1. Клонируйте репозиторий с GitHub:
 ```bash
-git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Pythonic-games-1-stage && \
+git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Pythonic-games-1-stage
 
 ```
 
@@ -81,6 +81,7 @@ python -m pip install --upgrade pip && \
 pip install aiohttp[speedups] && \
 pip install httpx && \
 ```
+
 <details><summary>Запуск одним файлом</summary><br>
 
 ```bash
@@ -116,6 +117,7 @@ E. Написать класс, принимающий на вход текст.
 python functions/text_class.py 
 ```
 <h1></h1>
+</details>
 
 [⬆️Оглавление](#оглавление)    
 </details>
