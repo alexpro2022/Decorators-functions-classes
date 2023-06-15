@@ -3,11 +3,14 @@ import time
 INPUT_MSG = '\nТестовые данные:\n  {}\n'
 OUTPUT_MSG = '\nРезультат выполнения функции:\n  {}\n'
 TIMER_MSG = '\nВремя выполнения функции "{}" составило {:.5f} секунд.\n'
+TEXT_MAX_SIZE = 2000
 
 
 def pretty_list(item):
-    if isinstance(item, dict | str):
+    if isinstance(item, dict):
         return item
+    if isinstance(item, str):
+        return item[:TEXT_MAX_SIZE] + ' ...'
     try:
         return '\n  '.join(item)
     except TypeError:

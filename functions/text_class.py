@@ -19,10 +19,13 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/.')
     import decorators
 
+TEST_FILE_PATH = 'functions/data.txt'
+ENCODING = 'utf-8'
+
 
 @decorators.input
 def __get_test_data():
-    with open('functions/data.txt', encoding='utf-8') as f:
+    with open(TEST_FILE_PATH, encoding=ENCODING) as f:
         return f.read()
 
 
