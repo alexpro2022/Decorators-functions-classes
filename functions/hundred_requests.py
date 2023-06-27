@@ -27,21 +27,26 @@ def __get_test_data():
 
 
 async def get_url(session, url):
-    async with session.get(url) as response:
-        return response
+    try:
+        async with session.get(url) as response:
+            return response
+    except aiohttp.ServerDisconnectedError:
+        pass
 
 
 @decorators.atimer
 async def test_url(url):
+    MAX_TIMEOUT: float = 9.99
     async with aiohttp.ClientSession() as session:
         tasks = [asyncio.create_task(get_url(session, url))
                  for _ in range(MAX_SIZE)]
-        return await asyncio.gather(*tasks)
+        done, pending = await asyncio.wait(tasks, timeout=MAX_TIMEOUT)
+        return f'done = {len(done)}', f'pending = {len(pending)}'
 
 
 @decorators.output
 def main(title):
-    asyncio.run(test_url(__get_test_data()))
+    return asyncio.run(test_url(__get_test_data()))
 
 
 if __name__ == '__main__':

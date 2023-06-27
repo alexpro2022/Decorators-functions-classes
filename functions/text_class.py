@@ -29,6 +29,7 @@ def __get_test_data():
         return f.read()
 
 
+@decorators.timer_all_public_methods
 class Text:
     RUS_ALPHABET = ''.join([chr(i) for i in range(ord('А'), ord('я') + 1)])
     ALPHABET = RUS_ALPHABET + s.ascii_letters + s.digits
@@ -77,12 +78,10 @@ class Text:
         s = [char.lower() for char in item if char in set(self.ALPHABET)]
         return s == s[::-1]
 
-    @decorators.timer
     def longest_word(self):
         return self.LONGEST_WORD_MSG.format(
             max(self.__get_words(), key=lambda x: len(x)))
 
-    @decorators.timer
     def frequent_word(self, min_length: int = 2):
         words = self.__get_words(min_length)
         unique_words = set(words)
@@ -91,7 +90,6 @@ class Text:
             counter[words.count(word)] = word
         return self.FREQUENT_WORD_MSG.format(counter[sorted(counter)[-1]])
 
-    @decorators.timer
     def special_simbols_counter(self):
         counter = 0
         for char in self.text:
@@ -99,7 +97,6 @@ class Text:
                 counter += 1
         return self.SPECIAL_SIMBOLS_MSG.format(counter)
 
-    @decorators.timer
     def palindromes(self, min_length: int = 2):
         words = [word for word in self.__get_words(min_length)
                  if self.__is_palindrome(word)]

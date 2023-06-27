@@ -6,16 +6,16 @@ C. Реализовать функцию с помощью методов map и
    то его значение нужно возвести в квадрат. Результат вывести в консоль.
 """
 import random
-from string import ascii_letters
-
 import os
 import sys
 
 if __package__:
     from . import decorators
+    from .utils import get_random_str
 else:
     sys.path.append(os.path.dirname(__file__) + '/.')
     import decorators
+    from utils import get_random_str
 
 
 MAX_SIZE = 10
@@ -26,16 +26,24 @@ STRING_LENGTH = 4
 def __get_test_data():
     res = []
     for _ in range(MAX_SIZE):
-        res.append(''.join([random.choice(ascii_letters)
-                            for _ in range(STRING_LENGTH)]))
+        res.append(get_random_str(STRING_LENGTH))
         res.append(random.randint(1, 100))
     return res
 
 
+def l_func(item):
+    return {
+        int: lambda x: x*x,
+        str: lambda x: ''.join(('abc_', x, '_cba')),
+    }.get(type(item))(item)
+
+
 @decorators.timer
 def new_list(arr):
-    return list(map(lambda x: x*x if isinstance(x, int)
+    res1 = list(map(lambda x: x*x if isinstance(x, int)
                     else ''.join(('abc_', x, '_cba')), arr))
+    res2 = list(map(l_func, arr))
+    return res1 == res2, res2
 
 
 @decorators.output
