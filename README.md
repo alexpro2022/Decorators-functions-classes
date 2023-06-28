@@ -50,7 +50,7 @@
 
 1. Клонируйте репозиторий с GitHub:
 ```bash
-git clone https://github.com/alexpro2022/Pythonic-games-1-stage.git && cd Pythonic-games-1-stage
+git clone https://github.com/alexpro2022/Decorators-functions-classes.git && cd Decorators-functions-classes
 
 ```
 
@@ -125,7 +125,7 @@ python functions/text_class.py
 ## Удаление:
 Из корневой директории проекта выполните команду:
 ```bash
-cd .. && rm -fr Pythonic-games-1-stage && deactivate
+cd .. && rm -fr Decorators-functions-classes && deactivate
 ```
   
 [⬆️Оглавление](#оглавление)
