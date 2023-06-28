@@ -23,8 +23,8 @@ def __get_test_data(start=0, end=20):
     for i in range(start, end):
         keys.add(str(i))
         values.append(i)
-    keys.pop()
-    keys.pop()
+    for _ in range(2):        
+        keys.pop()
     return list(keys), values
 
 
@@ -35,10 +35,10 @@ def create_dict(keys: list, values: list):
     return dict(sorted(zip_longest(keys, values, fillvalue='fillvalue')))
 
 
-@decorators.output
-def main(title):
+@decorators.output(__doc__)
+def main():
     return create_dict(*__get_test_data())
 
 
 if __name__ == '__main__':
-    main(__doc__)
+    main()

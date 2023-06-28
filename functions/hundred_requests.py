@@ -17,8 +17,9 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/.')
     import decorators
 
-TEST_URL = 'http://httpbin.org/delay/3'
-MAX_SIZE = 100
+TEST_URL: str = 'http://httpbin.org/delay/3'
+MAX_SIZE: int = 100
+MAX_TIMEOUT: float = 9.99
 
 
 @decorators.input
@@ -36,7 +37,6 @@ async def get_url(session, url):
 
 @decorators.atimer
 async def test_url(url):
-    MAX_TIMEOUT: float = 9.99
     async with aiohttp.ClientSession() as session:
         tasks = [asyncio.create_task(get_url(session, url))
                  for _ in range(MAX_SIZE)]
@@ -44,10 +44,10 @@ async def test_url(url):
         return f'done = {len(done)}', f'pending = {len(pending)}'
 
 
-@decorators.output
-def main(title):
+@decorators.output(__doc__)
+def main():
     return asyncio.run(test_url(__get_test_data()))
 
 
 if __name__ == '__main__':
-    main(__doc__)
+    main()

@@ -7,8 +7,9 @@ if __name__ == '__main__':
     from functions import (
         create_dict, github_links, hundred_requests, new_list, text_class)
 
-    github_links.main(github_links.__doc__)
-    create_dict.main(create_dict.__doc__)
-    new_list.main(new_list.__doc__)
-    text_class.main(text_class.__doc__)
-    hundred_requests.main(hundred_requests.__doc__)
+    github_links.main()
+    create_dict.main()
+    new_list.main()
+    text_class.main()
+    hundred_requests.main()
+

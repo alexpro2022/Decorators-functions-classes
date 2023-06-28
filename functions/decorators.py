@@ -1,10 +1,12 @@
 import logging
 import time
 from typing import Any
+from functools import wraps
 
 INPUT_MSG = '\nТестовые данные:\n  {}\n'
 OUTPUT_MSG = '\nРезультат выполнения функции:\n  {}\n'
 TIMER_MSG = ' Время выполнения функции "{}" составило {:.0f} миллисек.\n'
+TITLE_MSG = '\n' + '='*50 + '\n'
 TEXT_MAX_SIZE = 2000
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
@@ -14,7 +16,9 @@ def pretty_list(item):
     if isinstance(item, dict):
         return item
     if isinstance(item, str):
-        return item[:TEXT_MAX_SIZE] + ' ...'
+        if len(item) > TEXT_MAX_SIZE:
+            return item[:TEXT_MAX_SIZE] + ' ...'
+        return item
     try:
         return '\n  '.join(item)
     except TypeError:
@@ -22,24 +26,29 @@ def pretty_list(item):
 
 
 def input(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)
         print(INPUT_MSG.format(pretty_list(result)))
         return result
     return wrapper
 
-
-def output(func):
-    def wrapper(*args, **kwargs):
-        print('\n' + '='*50)
-        result = func(*args, **kwargs)
-        if result is not None:
-            print(OUTPUT_MSG.format(pretty_list(result)))
-        return result
-    return wrapper
+def output(title=None):
+    def _output(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if title is not None:
+                print(TITLE_MSG, title)
+            result = func(*args, **kwargs)
+            if result is not None:
+                print(OUTPUT_MSG.format(pretty_list(result)))
+            return result
+        return wrapper
+    return _output
 
 
 def timer(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
@@ -50,6 +59,7 @@ def timer(func):
 
 
 def atimer(func):
+    @wraps(func)
     async def wrapper(*args, **kwargs):
         start_time = time.time()
         result = await func(*args, **kwargs)

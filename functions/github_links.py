@@ -55,10 +55,10 @@ def get_github_projects(urls):
             if project is not None]
 
 
-@decorators.output
-def main(title):
+@decorators.output(__doc__)
+def main():
     return get_github_projects(__get_test_data())
 
 
 if __name__ == '__main__':
-    main(__doc__)
+    main()

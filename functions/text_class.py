@@ -34,7 +34,7 @@ class Text:
     RUS_ALPHABET = ''.join([chr(i) for i in range(ord('А'), ord('я') + 1)])
     ALPHABET = RUS_ALPHABET + s.ascii_letters + s.digits
     LONGEST_WORD_MSG = 'Самое длинное слово в тексте: "{}".\n'
-    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово: "{}".\n'
+    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово из {} букв: "{}".\n'
     SPECIAL_SIMBOLS_MSG = ('Количество спецсимволов в тексте '
                            '(точки, запятые и т. д.): {}.\n')
     PALINDROMES_MSG = ('Все палиндромы:\n  '
@@ -78,18 +78,21 @@ class Text:
         s = [char.lower() for char in item if char in set(self.ALPHABET)]
         return s == s[::-1]
 
+    @decorators.output()
     def longest_word(self):
         return self.LONGEST_WORD_MSG.format(
             max(self.__get_words(), key=lambda x: len(x)))
 
+    @decorators.output()
     def frequent_word(self, min_length: int = 2):
         words = self.__get_words(min_length)
         unique_words = set(words)
         counter = {}
         for word in unique_words:
             counter[words.count(word)] = word
-        return self.FREQUENT_WORD_MSG.format(counter[sorted(counter)[-1]])
-
+        return self.FREQUENT_WORD_MSG.format(min_length, counter[sorted(counter)[-1]])
+    
+    @decorators.output()
     def special_simbols_counter(self):
         counter = 0
         for char in self.text:
@@ -97,6 +100,7 @@ class Text:
                 counter += 1
         return self.SPECIAL_SIMBOLS_MSG.format(counter)
 
+    @decorators.output()
     def palindromes(self, min_length: int = 2):
         words = [word for word in self.__get_words(min_length)
                  if self.__is_palindrome(word)]
@@ -106,14 +110,14 @@ class Text:
                                            '\n   | '.join(sentences))
 
 
-@decorators.output
-def main(title):
+@decorators.output(__doc__)
+def main():
     text = Text(__get_test_data())
-    print(text.longest_word())
-    print(text.frequent_word(min_length=5))
-    print(text.special_simbols_counter())
-    print(text.palindromes())
+    text.longest_word()
+    text.frequent_word(min_length=5)
+    text.special_simbols_counter()
+    text.palindromes()    
 
 
 if __name__ == '__main__':
-    main(__doc__)
+    main()

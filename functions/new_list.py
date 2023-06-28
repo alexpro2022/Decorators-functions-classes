@@ -46,10 +46,10 @@ def new_list(arr):
     return res1 == res2, res2
 
 
-@decorators.output
-def main(title):
+@decorators.output(__doc__)
+def main():
     return new_list(__get_test_data())
 
 
 if __name__ == '__main__':
-    main(__doc__)
+    main()
