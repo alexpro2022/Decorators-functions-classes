@@ -1,5 +1,5 @@
 # Декораторы, функции и классы
-[![Decorators-functions-classes Test Suite](https://github.com/alexpro2022/Decorators-functions-classes/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/Decorators-functions-classes/actions)
+[![Test Suite](https://github.com/alexpro2022/Decorators-functions-classes/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/Decorators-functions-classes/actions)
 
 #### Тестовые задания - реализация декораторов, функций и классов.
 
