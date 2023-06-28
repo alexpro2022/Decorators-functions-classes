@@ -10,7 +10,6 @@ import asyncio
 import os
 import sys
 
-import aiohttp
 import httpx
 
 if __package__:
@@ -61,7 +60,8 @@ async def get_github_project(url: str) -> str | None:
 
 @decorators.atimer
 async def get_github_projects(urls):
-    return [project for project in [await get_github_project(url) async for url in get_valid(urls)]
+    return [project for project in [await get_github_project(url)
+            async for url in get_valid(urls)]
             if project is not None]
 
 
@@ -69,6 +69,7 @@ async def get_github_projects(urls):
 @decorators.output(title=__doc__)
 def main():
     return asyncio.run(get_github_projects(__get_test_data()))
+
 
 if __name__ == '__main__':
     main()
