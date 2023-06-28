@@ -1,4 +1,3 @@
-import logging
 import time
 from functools import wraps
 from typing import Any
@@ -9,8 +8,6 @@ OUTPUT_MSG = '\nРезультат выполнения функции:\n  {}\n'
 TIMER_MSG = ' Время выполнения функции "{}" составило {:.0f} миллисек.\n'
 TITLE_MSG = '\n' + '=' * 50 + '\n'
 TEXT_MAX_SIZE = 2000
-
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 
 def pretty_list(item):
@@ -57,7 +54,7 @@ def timer(func):
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
-        logging.info(TIMER_MSG.format(
+        print(TIMER_MSG.format(
             func.__name__, (time.time() - start_time) * 1000))
         return result
     return wrapper
@@ -68,7 +65,7 @@ def atimer(func):
     async def wrapper(*args, **kwargs):
         start_time = time.time()
         result = await func(*args, **kwargs)
-        logging.info(TIMER_MSG.format(
+        print(TIMER_MSG.format(
             func.__name__, (time.time() - start_time) * 1000))
         return result
     return wrapper
