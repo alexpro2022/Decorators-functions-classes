@@ -33,10 +33,10 @@ def __get_test_data():
 class Text:
     RUS_ALPHABET = ''.join([chr(i) for i in range(ord('А'), ord('я') + 1)])
     ALPHABET = RUS_ALPHABET + s.ascii_letters + s.digits
-    LONGEST_WORD_MSG = 'Самое длинное слово в тексте: "{}".\n'
-    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово из {} букв: "{}".\n'
+    LONGEST_WORD_MSG = 'Самое длинное слово в тексте: "{}".'
+    FREQUENT_WORD_MSG = 'Самое часто встречающееся слово из {} букв: "{}".'
     SPECIAL_SIMBOLS_MSG = ('Количество спецсимволов в тексте '
-                           '(точки, запятые и т. д.): {}.\n')
+                           '(точки, запятые и т. д.): {}.')
     PALINDROMES_MSG = ('Все палиндромы:\n  '
                        '*слова - {}\n  '
                        '*предложения:\n   | {}.\n')
