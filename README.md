@@ -48,6 +48,7 @@
 <br>
 
 ## Установка и запуск:
+Удобно использовать принцип copy-paste - копировать команды из GitHub Readme и вставлять в командную строку Git Bash или IDE (например VSCode).
 
 1. Клонируйте репозиторий с GitHub:
 ```bash
@@ -56,6 +57,15 @@ git clone https://github.com/alexpro2022/Decorators-functions-classes.git && cd 
 ```
 
 <details><summary>Запуск в Docker</summary><br>
+
+<details><summary>Предварительные условия для Docker Compose</summary>
+
+Предполагается, что пользователь установил [Docker](https://docs.docker.com/engine/install/) Проверить наличие можно выполнив команды:
+ 
+    ```bash
+    docker --version && docker-compose --version
+    ```
+</details>
     
 2. Запустите приложение в docker-контейнере:
 ```bash
