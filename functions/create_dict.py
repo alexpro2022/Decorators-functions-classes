@@ -23,7 +23,7 @@ def __get_test_data(start=0, end=20):
     for i in range(start, end):
         keys.add(str(i))
         values.append(i)
-    for _ in range(2):        
+    for _ in range(2):
         keys.pop()
     return list(keys), values
 

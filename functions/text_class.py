@@ -90,8 +90,9 @@ class Text:
         counter = {}
         for word in unique_words:
             counter[words.count(word)] = word
-        return self.FREQUENT_WORD_MSG.format(min_length, counter[sorted(counter)[-1]])
-    
+        return self.FREQUENT_WORD_MSG.format(
+            min_length, counter[sorted(counter)[-1]])
+
     @decorators.output
     def special_simbols_counter(self):
         counter = 0
@@ -117,7 +118,7 @@ def main():
     text.longest_word()
     text.frequent_word(min_length=5)
     text.special_simbols_counter()
-    text.palindromes()    
+    text.palindromes()
 
 
 if __name__ == '__main__':

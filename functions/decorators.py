@@ -46,7 +46,7 @@ def output(_func=None, *, title=None):
                 print(OUTPUT_MSG.format(pretty_list(result)), SEPARATOR)
             return result
         return wrapper
-    
+
     if _func is None:
         return _output
     return _output(_func)
