@@ -33,14 +33,14 @@ def __get_test_data():
 
 def l_func(item):
     return {
-        int: lambda x: x*x,
+        int: lambda x: x * x,
         str: lambda x: ''.join(('abc_', x, '_cba')),
     }.get(type(item))(item)
 
 
 @decorators.timer
 def new_list(arr):
-    res1 = list(map(lambda x: x*x if isinstance(x, int)
+    res1 = list(map(lambda x: x * x if isinstance(x, int)
                     else ''.join(('abc_', x, '_cba')), arr))
     res2 = list(map(l_func, arr))
     return res1 == res2, res2
