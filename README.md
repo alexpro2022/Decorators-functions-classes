@@ -136,6 +136,6 @@ cd .. && rm -fr Decorators-functions-classes && deactivate
 ## Автор:
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
-[⬆️В начало](#Декораторы,-функции-и-классы)
+[⬆️В начало](#Декораторы-функции-и-классы)
 
 
