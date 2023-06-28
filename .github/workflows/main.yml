@@ -1,4 +1,4 @@
-name: Decorators-functions-classes Test Suite
+name: Test Suite
 
 on:
   push:
