@@ -33,6 +33,7 @@ def input(func):
         return result
     return wrapper
 
+
 def output(title=None):
     def _output(func):
         @wraps(func)
