@@ -1,4 +1,5 @@
 # Декораторы, функции и классы
+[![Decorators-functions-classes Test Suite](https://github.com/alexpro2022/Decorators-functions-classes/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/Decorators-functions-classes/actions/workflows/main.yml)
 
 #### Тестовые задания - реализация декораторов, функций и классов.
 
@@ -135,6 +136,6 @@ cd .. && rm -fr Decorators-functions-classes && deactivate
 ## Автор:
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
-[⬆️В начало](#Питонические-игры-от-Андрея-Пронина)
+[⬆️В начало](#Декораторы,-функции-и-классы)
 
 
