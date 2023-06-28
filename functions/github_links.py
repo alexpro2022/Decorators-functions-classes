@@ -92,7 +92,7 @@ async def gather_github_projects(urls):
 
 
 # </=== asyncio.as_completed() ===>
-async def as_completed_valid(urls: tuple[str]) -> tuple[str]:
+async def as_completed_valid(urls: tuple[str]):
     async with httpx.AsyncClient() as client:
         tasks = [asyncio.create_task(get_url(client, url)) for url in urls]
         for coro in asyncio.as_completed(tasks):
