@@ -56,7 +56,7 @@ async def _get_valid(urls: tuple[str]) -> tuple[str]:
                 if response.status_code in (200, 301, 302):
                     yield url
             except ValueError:
-                pass  
+                pass
 
 
 @decorators.atimer
@@ -67,7 +67,7 @@ async def _get_github_projects(urls):
 # </=== async/await ===>
 
 
-# <=== asyncio.gather() ===> approx. 3-4 times faster 
+# <=== asyncio.gather() ===> approx. 3-4 times faster
 async def get_url(client, url):
     try:
         response = await client.get(url)
