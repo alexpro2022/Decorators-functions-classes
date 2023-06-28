@@ -5,11 +5,11 @@ D. Реализовать функцию, которая замеряет вре
    библиотек. Результат замера времени выводит в консоль.
    Ожидаемое время не должно превышать 10 секунд.
 """
-import aiohttp
 import asyncio
-
 import os
 import sys
+
+import aiohttp
 
 if __package__:
     from . import decorators

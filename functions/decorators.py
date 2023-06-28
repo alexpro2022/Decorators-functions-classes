@@ -1,7 +1,7 @@
 import logging
 import time
-from typing import Any
 from functools import wraps
+from typing import Any
 
 SEPARATOR = '-' * 50
 INPUT_MSG = '\nТестовые данные:\n  {}\n'
