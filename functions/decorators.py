@@ -3,9 +3,9 @@ from functools import wraps
 from typing import Any
 
 SEPARATOR = '-' * 50
-INPUT_MSG = '\nТестовые данные:\n  {}\n'
-OUTPUT_MSG = '\nРезультат выполнения функции:\n  {}\n'
-TIMER_MSG = ' Время выполнения функции "{}" составило {:.0f} миллисек.\n'
+INPUT_MSG = '\n\U0001F449 Тестовые данные:\n  {}\n'
+OUTPUT_MSG = '\n\U0001F3C1 Результат выполнения функции:\n  {}\n'
+TIMER_MSG = '⏳ Время выполнения функции "{}" составило {:.0f} миллисек.\n'
 TITLE_MSG = '\n' + '=' * 50 + '\n'
 TEXT_MAX_SIZE = 2000
 
