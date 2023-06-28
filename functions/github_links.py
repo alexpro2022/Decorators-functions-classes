@@ -42,10 +42,10 @@ async def get_valid(urls: tuple[str]) -> tuple[str]:
         for url in urls:
             try:
                 response = await client.get(url)
+                if response.status_code in (200, 301):
+                    yield url
             except ValueError:
-                continue
-            if response.status_code in (200, 301):
-                yield url
+                pass              
 
 
 def get_github_project(url: str) -> str | None:
