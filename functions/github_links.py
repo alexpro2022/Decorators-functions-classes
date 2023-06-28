@@ -48,7 +48,7 @@ async def get_valid(urls: tuple[str]) -> tuple[str]:
                 yield url
 
 
-async def get_github_project(url: str) -> str | None:
+def get_github_project(url: str) -> str | None:
     try:
         _, _, domain, _, *remain = url.split('/')
     except ValueError:
@@ -60,7 +60,7 @@ async def get_github_project(url: str) -> str | None:
 
 @decorators.atimer
 async def get_github_projects(urls):
-    return [project for project in [await get_github_project(url)
+    return [project for project in [get_github_project(url)
             async for url in get_valid(urls)]
             if project is not None]
 
