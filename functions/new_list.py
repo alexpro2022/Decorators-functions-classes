@@ -46,7 +46,8 @@ def new_list(arr):
     return res1 == res2, res2
 
 
-@decorators.output(__doc__)
+@decorators.timer
+@decorators.output(title=__doc__)
 def main():
     return new_list(__get_test_data())
 

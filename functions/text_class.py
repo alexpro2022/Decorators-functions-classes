@@ -78,12 +78,12 @@ class Text:
         s = [char.lower() for char in item if char in set(self.ALPHABET)]
         return s == s[::-1]
 
-    @decorators.output()
+    @decorators.output
     def longest_word(self):
         return self.LONGEST_WORD_MSG.format(
             max(self.__get_words(), key=lambda x: len(x)))
 
-    @decorators.output()
+    @decorators.output
     def frequent_word(self, min_length: int = 2):
         words = self.__get_words(min_length)
         unique_words = set(words)
@@ -92,7 +92,7 @@ class Text:
             counter[words.count(word)] = word
         return self.FREQUENT_WORD_MSG.format(min_length, counter[sorted(counter)[-1]])
     
-    @decorators.output()
+    @decorators.output
     def special_simbols_counter(self):
         counter = 0
         for char in self.text:
@@ -100,7 +100,7 @@ class Text:
                 counter += 1
         return self.SPECIAL_SIMBOLS_MSG.format(counter)
 
-    @decorators.output()
+    @decorators.output
     def palindromes(self, min_length: int = 2):
         words = [word for word in self.__get_words(min_length)
                  if self.__is_palindrome(word)]
@@ -110,7 +110,8 @@ class Text:
                                            '\n   | '.join(sentences))
 
 
-@decorators.output(__doc__)
+@decorators.timer
+@decorators.output(title=__doc__)
 def main():
     text = Text(__get_test_data())
     text.longest_word()

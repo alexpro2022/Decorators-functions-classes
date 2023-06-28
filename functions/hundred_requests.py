@@ -18,7 +18,7 @@ else:
     import decorators
 
 TEST_URL: str = 'http://httpbin.org/delay/3'
-MAX_SIZE: int = 100
+TASKS_AMOUNT: int = 100
 MAX_TIMEOUT: float = 9.99
 
 
@@ -39,12 +39,13 @@ async def get_url(session, url):
 async def test_url(url):
     async with aiohttp.ClientSession() as session:
         tasks = [asyncio.create_task(get_url(session, url))
-                 for _ in range(MAX_SIZE)]
+                 for _ in range(TASKS_AMOUNT)]
         done, pending = await asyncio.wait(tasks, timeout=MAX_TIMEOUT)
         return f'done = {len(done)}', f'pending = {len(pending)}'
 
 
-@decorators.output(__doc__)
+@decorators.timer
+@decorators.output(title=__doc__)
 def main():
     return asyncio.run(test_url(__get_test_data()))
 

@@ -55,7 +55,8 @@ def get_github_projects(urls):
             if project is not None]
 
 
-@decorators.output(__doc__)
+@decorators.timer
+@decorators.output(title=__doc__)
 def main():
     return get_github_projects(__get_test_data())
 

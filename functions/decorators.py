@@ -3,6 +3,7 @@ import time
 from typing import Any
 from functools import wraps
 
+SEPARATOR = '-' * 50
 INPUT_MSG = '\nТестовые данные:\n  {}\n'
 OUTPUT_MSG = '\nРезультат выполнения функции:\n  {}\n'
 TIMER_MSG = ' Время выполнения функции "{}" составило {:.0f} миллисек.\n'
@@ -29,12 +30,12 @@ def input(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)
-        print(INPUT_MSG.format(pretty_list(result)))
+        print(INPUT_MSG.format(pretty_list(result)), SEPARATOR)
         return result
     return wrapper
 
 
-def output(title=None):
+def output(_func=None, *, title=None):
     def _output(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -42,10 +43,13 @@ def output(title=None):
                 print(TITLE_MSG, title)
             result = func(*args, **kwargs)
             if result is not None:
-                print(OUTPUT_MSG.format(pretty_list(result)))
+                print(OUTPUT_MSG.format(pretty_list(result)), SEPARATOR)
             return result
         return wrapper
-    return _output
+    
+    if _func is None:
+        return _output
+    return _output(_func)
 
 
 def timer(func):

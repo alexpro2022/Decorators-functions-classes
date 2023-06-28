@@ -35,7 +35,8 @@ def create_dict(keys: list, values: list):
     return dict(sorted(zip_longest(keys, values, fillvalue='fillvalue')))
 
 
-@decorators.output(__doc__)
+@decorators.timer
+@decorators.output(title=__doc__)
 def main():
     return create_dict(*__get_test_data())
 
