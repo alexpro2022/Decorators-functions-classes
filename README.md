@@ -58,13 +58,15 @@ git clone https://github.com/alexpro2022/Decorators-functions-classes.git && cd 
 
 <details><summary>Запуск в Docker</summary><br>
 
-<details><summary>Предварительные условия для Docker Compose</summary>
+<details><summary>Предварительные условия для Docker</summary>
 
-Предполагается, что пользователь установил [Docker](https://docs.docker.com/engine/install/) Проверить наличие можно выполнив команды:
- 
-    ```bash
-    docker --version && docker-compose --version
-    ```
+Предполагается, что пользователь установил [Docker](https://docs.docker.com/engine/install/). 
+Проверить наличие можно выполнив команды:
+
+```bash
+docker --version && docker-compose --version
+```
+
 </details>
     
 2. Запустите приложение в docker-контейнере:
