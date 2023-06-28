@@ -48,7 +48,7 @@ def get_github_project(url: str) -> str | None:
 
 
 # <=== async/await ===>
-async def _get_valid(urls: tuple[str]) -> tuple[str]:
+async def get_valid(urls: tuple[str]) -> tuple[str]:
     async with httpx.AsyncClient() as client:
         for url in urls:
             try:
@@ -60,14 +60,13 @@ async def _get_valid(urls: tuple[str]) -> tuple[str]:
 
 
 @decorators.atimer
-async def _get_github_projects(urls):
+async def get_github_projects(urls):
     return [project for project in [get_github_project(url)
-            async for url in _get_valid(urls)]
+            async for url in get_valid(urls)]
             if project is not None]
 # </=== async/await ===>
 
 
-# <=== asyncio.gather() ===> approx. 3-4 times faster
 async def get_url(client, url):
     try:
         response = await client.get(url)
@@ -76,6 +75,7 @@ async def get_url(client, url):
     return url if response.status_code in (200, 301, 302) else None
 
 
+# <=== asyncio.gather() ===> approx. 3-4 times faster
 async def gather_valid(urls: tuple[str]) -> tuple[str]:
     async with httpx.AsyncClient() as client:
         coros = [get_url(client, url) for url in urls]
@@ -91,11 +91,31 @@ async def gather_github_projects(urls):
 # </=== asyncio.gather() ===>
 
 
+# </=== asyncio.as_completed() ===>
+async def as_completed_valid(urls: tuple[str]) -> tuple[str]:
+    async with httpx.AsyncClient() as client:
+        tasks = [asyncio.create_task(get_url(client, url)) for url in urls]
+        for coro in asyncio.as_completed(tasks):
+            url = await coro
+            if url is not None:
+                yield url
+
+
+@decorators.atimer
+async def as_completed_github_projects(urls):
+    return [project for project in [get_github_project(url)
+            async for url in as_completed_valid(urls)]
+            if project is not None]
+# </=== asyncio.as_completed() ===>
+
+
 async def run_together():
-    res1 = await _get_github_projects(__get_test_data())
-    res2 = await gather_github_projects(__get_test_data())
+    data = __get_test_data()
+    res1 = await get_github_projects(data)
+    res2 = await gather_github_projects(data)
+    res3 = await as_completed_github_projects(data)
     assert res1 == res2
-    return res2
+    return res3
 
 
 @decorators.timer
