@@ -20,6 +20,8 @@ else:
 
 
 DOMAIN = 'github.com'
+TEST_DATA_SIZE = 10
+OK_STATUSES = (200, 301, 302)
 
 
 @decorators.input
@@ -33,8 +35,8 @@ def __get_test_data() -> tuple[str]:
         'https://github.com/tiangolo/fastapi.git',
         'https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker.git',
         'https://ya.ru',
-        'asdr.com',
-    )
+        # 'asdr.com',
+    ) * TEST_DATA_SIZE
 
 
 def get_github_project(url: str) -> str | None:
@@ -47,22 +49,35 @@ def get_github_project(url: str) -> str | None:
     return remain[0].split('.')[0]
 
 
+# <=== sync ===>
+def sync_valid(urls: tuple[str]) -> tuple[str]:
+    return [url for url in urls if httpx.get(url).status_code in OK_STATUSES]
+
+
+@decorators.timer
+def sync_github_projects(urls):
+    return [project for project in [get_github_project(url)
+            for url in sync_valid(urls)]
+            if project is not None]
+# </=== sync ===>
+
+
 # <=== async/await ===>
-async def get_valid(urls: tuple[str]) -> tuple[str]:
-    async with httpx.AsyncClient() as client:
+async def async_valid(urls: tuple[str]) -> tuple[str]:
+    async with httpx.AsyncClient(http2=True) as client:
         for url in urls:
             try:
                 response = await client.get(url)
-                if response.status_code in (200, 301, 302):
+                if response.status_code in OK_STATUSES:
                     yield url
             except ValueError:
                 pass
 
 
 @decorators.atimer
-async def get_github_projects(urls):
+async def async_github_projects(urls):
     return [project for project in [get_github_project(url)
-            async for url in get_valid(urls)]
+            async for url in async_valid(urls)]
             if project is not None]
 # </=== async/await ===>
 
@@ -72,12 +87,12 @@ async def get_url(client, url):
         response = await client.get(url)
     except (httpx.UnsupportedProtocol, ValueError):
         return None
-    return url if response.status_code in (200, 301, 302) else None
+    return url if response.status_code in OK_STATUSES else None
 
 
-# <=== asyncio.gather() ===> approx. 3-4 times faster
+# <=== asyncio.gather() ===> approx. 3-4 times faster then above method
 async def gather_valid(urls: tuple[str]) -> tuple[str]:
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(http2=True) as client:
         coros = [get_url(client, url) for url in urls]
         return [url for url in await asyncio.gather(*coros)
                 if url is not None]
@@ -91,11 +106,11 @@ async def gather_github_projects(urls):
 # </=== asyncio.gather() ===>
 
 
-# </=== asyncio.as_completed() ===>
+# </=== asyncio.as_completed() ===>  usually a bit faster then gather
 async def as_completed_valid(urls: tuple[str]):
-    async with httpx.AsyncClient() as client:
-        tasks = [asyncio.create_task(get_url(client, url)) for url in urls]
-        for coro in asyncio.as_completed(tasks):
+    async with httpx.AsyncClient(http2=True) as client:
+        coros = [get_url(client, url) for url in urls]
+        for coro in asyncio.as_completed(coros):
             url = await coro
             if url is not None:
                 yield url
@@ -111,11 +126,13 @@ async def as_completed_github_projects(urls):
 
 async def run_together():
     data = __get_test_data()
-    res1 = await get_github_projects(data)
-    res2 = await gather_github_projects(data)
-    res3 = await as_completed_github_projects(data)
-    assert res1 == res2
-    return res3
+    res2 = gather_github_projects(data)
+    res3 = as_completed_github_projects(data)
+    await asyncio.gather(res2, res3)
+    res1 = await async_github_projects(data)
+    res4 = sync_github_projects(data)
+    assert res1 == res4
+    return set(res1)
 
 
 @decorators.timer
@@ -126,3 +143,15 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+'''
+⏳ Время выполнения функции "as_completed_github_projects" составило 810 ms.
+
+⏳ Время выполнения функции "gather_github_projects" составило 868 ms.
+
+⏳ Время выполнения функции "async_github_projects" составило 4506 ms.
+
+⏳ Время выполнения функции "sync_github_projects" составило 12813 ms.
+
+'''
