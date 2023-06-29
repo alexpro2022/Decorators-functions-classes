@@ -21,7 +21,7 @@ else:
 
 DOMAIN = 'github.com'
 TEST_DATA_SIZE = 10
-OK_STATUSES = (200, 301, 302)
+OK_STATUSES = (200,)
 
 
 @decorators.input
@@ -51,7 +51,8 @@ def get_github_project(url: str) -> str | None:
 
 # <=== sync ===>
 def sync_valid(urls: tuple[str]) -> tuple[str]:
-    return [url for url in urls if httpx.get(url).status_code in OK_STATUSES]
+    return [url for url in urls if
+            httpx.get(url, follow_redirects=True).status_code in OK_STATUSES]
 
 
 @decorators.timer
@@ -67,7 +68,7 @@ async def async_valid(urls: tuple[str]) -> tuple[str]:
     async with httpx.AsyncClient(http2=True) as client:
         for url in urls:
             try:
-                response = await client.get(url)
+                response = await client.get(url, follow_redirects=True)
                 if response.status_code in OK_STATUSES:
                     yield url
             except ValueError:
@@ -84,7 +85,7 @@ async def async_github_projects(urls):
 
 async def get_url(client, url):
     try:
-        response = await client.get(url)
+        response = await client.get(url, follow_redirects=True)
     except (httpx.UnsupportedProtocol, ValueError):
         return None
     return url if response.status_code in OK_STATUSES else None
@@ -146,12 +147,12 @@ if __name__ == '__main__':
 
 
 '''
-⏳ Время выполнения функции "as_completed_github_projects" составило 810 ms.
+⏳ Время выполнения функции "as_completed_github_projects" составило 1514 ms.
 
-⏳ Время выполнения функции "gather_github_projects" составило 868 ms.
+⏳ Время выполнения функции "gather_github_projects" составило 1761 ms.
 
-⏳ Время выполнения функции "async_github_projects" составило 4506 ms.
+⏳ Время выполнения функции "async_github_projects" составило 7152 ms.
 
-⏳ Время выполнения функции "sync_github_projects" составило 12813 ms.
+⏳ Время выполнения функции "sync_github_projects" составило 22249 ms.
 
 '''
