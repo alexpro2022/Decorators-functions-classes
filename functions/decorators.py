@@ -52,10 +52,10 @@ def output(_func=None, *, title=None):
 def timer(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        start_time = time.time()
+        start_time = time.perf_counter()
         result = func(*args, **kwargs)
         print(TIMER_MSG.format(
-            func.__name__, (time.time() - start_time) * 1000))
+            func.__name__, (time.perf_counter() - start_time) * 1000))
         return result
     return wrapper
 
@@ -63,10 +63,10 @@ def timer(func):
 def atimer(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
-        start_time = time.time()
+        start_time = time.perf_counter()
         result = await func(*args, **kwargs)
         print(TIMER_MSG.format(
-            func.__name__, (time.time() - start_time) * 1000))
+            func.__name__, (time.perf_counter() - start_time) * 1000))
         return result
     return wrapper
 
